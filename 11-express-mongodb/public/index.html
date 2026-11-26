@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Products (MongoDB)</title>
+<style>
+body{font-family:Arial;max-width:800px;margin:30px auto}
+form{display:flex;gap:8px;margin-bottom:20px}input{padding:8px;flex:1}
+button{padding:6px 12px;border:none;color:#fff;background:#2563eb;cursor:pointer;margin-right:4px}.d{background:#dc2626}
+table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left}
+</style></head><body>
+<h1>Products (MongoDB CRUD)</h1>
+<form id="f"><input type="hidden" id="id"><input id="name" placeholder="Name" required><input id="price" type="number" placeholder="Price" required><input id="desc" placeholder="Description"><button id="save">Add</button></form>
+<table><thead><tr><th>Name</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead><tbody id="b"></tbody></table>
+<script>
+const $ = id => document.getElementById(id);
+async function load() {
+  const list = await (await fetch('/products')).json();
+  $('b').innerHTML = '';
+  list.forEach(p => {
+    const tr = document.createElement('tr');
+    [p.name, p.price, p.description].forEach(v => { const td = document.createElement('td'); td.textContent = v; tr.appendChild(td); });
+    const td = document.createElement('td');
+    const e = document.createElement('button'); e.textContent = 'Edit';
+    e.onclick = () => { $('id').value = p._id; $('name').value = p.name; $('price').value = p.price; $('desc').value = p.description; $('save').textContent = 'Update'; };
+    const d = document.createElement('button'); d.textContent = 'Delete'; d.className = 'd';
+    d.onclick = async () => { await fetch('/products/' + p._id, { method: 'DELETE' }); load(); };
+    td.append(e, d); tr.appendChild(td); $('b').appendChild(tr);
+  });
+}
+$('f').onsubmit = async ev => {
+  ev.preventDefault();
+  const body = JSON.stringify({ name: $('name').value, price: +$('price').value, description: $('desc').value });
+  const id = $('id').value;
+  await fetch(id ? '/products/' + id : '/products', { method: id ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body });
+  ev.target.reset(); $('id').value = ''; $('save').textContent = 'Add'; load();
+};
+load();
+</script></body></html>

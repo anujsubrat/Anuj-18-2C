@@ -1,0 +1,4 @@
+<%- include('header') %><h1>Messages</h1>
+<% if (!messages.length) { %><p>No messages yet.</p><% } %>
+<ul><% messages.forEach(m => { %><li><b><%= m.name %></b>: <%= m.message %> <small>(<%= m.at %>)</small></li><% }) %></ul>
+<form method="POST" action="/messages/clear"><button>Clear all</button></form><%- include('footer') %>

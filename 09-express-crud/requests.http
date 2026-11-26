@@ -1,0 +1,17 @@
+### Test with VS Code "REST Client" extension, Postman, or curl
+GET http://localhost:3000/products
+
+###
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{"name":"Headphones","price":1999,"description":"Wireless"}
+
+###
+PUT http://localhost:3000/products/1
+Content-Type: application/json
+
+{"price":52000}
+
+###
+DELETE http://localhost:3000/products/2

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Concentric Circles</title>
+<style>
+body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f4f4f4}
+.box{position:relative;width:60px;height:60px;transform:scale(5)}
+.circle{border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+</style></head><body>
+<!-- Radii 10px, 20px, 30px (diameters 20, 40, 60). The group is scaled x5 only for visibility. -->
+<div class="box">
+  <div class="circle" style="width:60px;height:60px;background:#e74c3c"></div>
+  <div class="circle" style="width:40px;height:40px;background:#f1c40f"></div>
+  <div class="circle" style="width:20px;height:20px;background:#2ecc71"></div>
+</div>
+</body></html>

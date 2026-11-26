@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>University Finder</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:30px}
+h1{text-align:center}.search{text-align:center;margin-bottom:20px}
+input{padding:10px;width:260px}button{padding:10px 18px;border:none;background:#2563eb;color:#fff;border-radius:5px;cursor:pointer}
+table{width:100%;max-width:1000px;margin:auto;border-collapse:collapse;background:#fff}
+th,td{padding:10px;border:1px solid #ddd;text-align:left}th{background:#2563eb;color:#fff}
+#status{text-align:center;color:#555}
+</style></head><body>
+<h1>🎓 University Finder</h1>
+<div class="search"><input id="country" placeholder="Enter a country e.g. India"><button id="go">Search</button></div>
+<p id="status"></p>
+<table id="tbl" hidden><thead><tr><th>#</th><th>Name</th><th>Website</th><th>State / Province</th></tr></thead><tbody></tbody></table>
+<script>
+// Data from the Hipolabs Universities API
+const status = document.getElementById('status'), tbl = document.getElementById('tbl');
+async function search() {
+  const country = document.getElementById('country').value.trim();
+  if (!country) { status.textContent = 'Please enter a country.'; return; }
+  status.textContent = 'Loading...'; tbl.hidden = true;
+  try {
+    const res = await fetch('https://universities.hipolabs.com/search?country=' + encodeURIComponent(country));
+    const data = await res.json();
+    const body = tbl.querySelector('tbody'); body.innerHTML = '';
+    if (!data.length) { status.textContent = 'No universities found.'; return; }
+    data.forEach((u, i) => {
+      const site = (u.web_pages && u.web_pages[0]) || '';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i + 1}</td><td></td><td><a target="_blank" rel="noopener"></a></td><td></td>`;
+      tr.children[1].textContent = u.name;
+      const a = tr.querySelector('a'); a.href = site; a.textContent = site;
+      tr.children[3].textContent = u['state-province'] || 'N/A';
+      body.appendChild(tr);
+    });
+    status.textContent = `${data.length} universities found in ${country}`; tbl.hidden = false;
+  } catch (e) { status.textContent = 'Failed to fetch data. Check your internet connection.'; }
+}
+document.getElementById('go').onclick = search;
+document.getElementById('country').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+</script></body></html>

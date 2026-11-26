@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Random Jokes</title>
+<style>
+body{font-family:Arial,sans-serif;background:#fef3c7;display:flex;justify-content:center;padding-top:60px}
+.box{background:#fff;padding:30px;border-radius:12px;width:480px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.2)}
+#setup{font-size:20px;font-weight:bold}#punch{font-size:18px;color:#b45309;margin-top:12px}
+button{margin-top:20px;padding:10px 20px;border:none;border-radius:6px;background:#f59e0b;color:#fff;font-size:16px;cursor:pointer}
+</style></head><body>
+<div class="box"><h1>😂 Random Joke</h1>
+<p id="setup">Click the button!</p><p id="punch"></p>
+<button id="btn">Get Joke</button></div>
+<script>
+// Uses the free Official Joke API
+async function getJoke() {
+  const setup = document.getElementById('setup'), punch = document.getElementById('punch');
+  setup.textContent = 'Loading...'; punch.textContent = '';
+  try {
+    const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+    if (!res.ok) throw new Error('Request failed');
+    const j = await res.json();
+    setup.textContent = j.setup; punch.textContent = j.punchline;
+  } catch (e) { setup.textContent = 'Could not load a joke. Check your internet connection.'; }
+}
+document.getElementById('btn').onclick = getJoke;
+getJoke();
+</script></body></html>

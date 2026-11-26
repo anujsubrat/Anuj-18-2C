@@ -1,0 +1,13 @@
+body{font-family:Arial,sans-serif;background:#1f2937;color:#fff;text-align:center}
+.wrap{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+#board{display:grid;grid-template-columns:repeat(10,56px);grid-template-rows:repeat(10,56px);border:4px solid #fbbf24}
+.cell{position:relative;font-size:11px;color:#333;padding:2px;box-sizing:border-box}
+.cell.a{background:#fde68a}.cell.b{background:#bbf7d0}
+.cell.ladder{outline:3px solid #16a34a;outline-offset:-3px}
+.cell.snake{outline:3px solid #dc2626;outline-offset:-3px}
+.tag{position:absolute;bottom:1px;right:2px;font-size:10px;font-weight:bold}
+.tok{position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid #fff;top:18px}
+.t1{background:#2563eb;left:8px}.t2{background:#dc2626;left:28px}
+.panel{width:200px}#dice{font-size:60px}
+button{margin:6px;padding:8px 14px;border:none;border-radius:6px;background:#fbbf24;cursor:pointer;font-weight:bold}
+.legend{font-size:13px;color:#cbd5e1}

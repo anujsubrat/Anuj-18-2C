@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Shop</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial;margin:0;background:#f3f4f6}
+header{background:#1e3a8a;color:#fff;padding:12px 24px;display:flex;gap:16px;align-items:center}
+header h2{margin:0;flex:1}header button{background:none;border:none;color:#fff;font-size:15px;cursor:pointer;padding:6px 10px}
+header button.on{background:#3b82f6;border-radius:5px}
+main{max-width:950px;margin:20px auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 5px rgba(0,0,0,.15)}
+.card h3{margin:0 0 6px}.price{color:#16a34a;font-weight:bold}
+button.p{background:#2563eb;color:#fff;border:none;padding:7px 12px;border-radius:5px;cursor:pointer;margin:2px}button.r{background:#dc2626}
+table{width:100%;background:#fff;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}
+input{padding:8px;margin:4px 0;width:100%}.box{background:#fff;padding:16px;border-radius:8px;margin-bottom:16px}
+.msg{padding:10px;border-radius:5px;margin-bottom:10px}.ok{background:#dcfce7}.err{background:#fee2e2}
+.hide{display:none}
+</style></head><body>
+<header><h2>🛒 My Shop</h2>
+<button data-t="shop" class="on">Products</button><button data-t="cart">Cart (<span id="cc">0</span>)</button>
+<button data-t="orders">My Orders</button><button data-t="seller">Seller Panel</button></header>
+<main>
+ <div id="shop"><div class="grid" id="products"></div></div>
+
+ <div id="cart" class="hide">
+  <h2>Your Cart</h2><div id="cartBox"></div>
+  <div class="box" id="payBox"><h3>Payment (demo - no real charge)</h3>
+   <input id="cn" placeholder="Name on card"><input id="cardn" placeholder="Card number (16 digits)" maxlength="19">
+   <input id="cvv" placeholder="CVV (3 digits)" maxlength="3"><button class="p" id="pay">Pay &amp; Place Order</button>
+   <div id="payMsg"></div></div>
+ </div>
+
+ <div id="orders" class="hide"><h2>Successful Orders</h2><div id="ordersBox"></div></div>
+
+ <div id="seller" class="hide">
+  <div class="box" id="login"><h3>Seller Login</h3><input id="spw" type="password" placeholder="Password (demo: seller123)"><button class="p" id="slogin">Login</button><div id="lmsg"></div></div>
+  <div id="panel" class="hide">
+   <div class="box"><h3 id="fh">Add Product</h3><input type="hidden" id="pid"><input id="pn" placeholder="Name"><input id="pp" type="number" placeholder="Price"><input id="pd" placeholder="Description"><button class="p" id="psave">Save</button><button class="p r" id="pcancel">Clear</button></div>
+   <table><thead><tr><th>Name</th><th>Price</th><th>Actions</th></tr></thead><tbody id="ptbl"></tbody></table>
+  </div>
+ </div>
+</main>
+<script src="app.js"></script></body></html>
